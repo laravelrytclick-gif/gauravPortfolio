@@ -19,10 +19,6 @@ function Particles() {
     return new Float32Array(temp)
   }, [])
 
-  const positionsAttribute = useMemo(() => {
-    return new THREE.BufferAttribute(particles, 3)
-  }, [particles])
-
   useFrame((state) => {
     if (particlesRef.current) {
       particlesRef.current.rotation.y = state.clock.elapsedTime * 0.05
@@ -35,7 +31,7 @@ function Particles() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          {...positionsAttribute}
+          args={[particles, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
