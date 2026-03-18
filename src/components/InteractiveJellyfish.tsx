@@ -1,0 +1,186 @@
+'use client'
+
+import { useRef, useState, useEffect } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import * as THREE from 'three'
+
+interface JellyfishProps {
+  position: [number, number, number]
+  slideDirection?: 'left' | 'right'
+  speed?: number
+  mousePosition?: { x: number; y: number }
+  isMouseDown?: boolean
+}
+
+function JellyfishGeometry({ position, slideDirection = 'right', speed = 1, mousePosition = { x: 0, y: 0 }, isMouseDown = false }: JellyfishProps) {
+  const meshRef = useRef<THREE.Group>(null)
+  const [slideOffset, setSlideOffset] = useState(0)
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      // Floating animation
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed) * 0.3
+      
+      // Sliding animation - enhanced with mouse down control
+      let slideSpeed = slideDirection === 'right' ? 0.5 : -0.5
+      
+      // When mouse is down, force movement to right
+      if (isMouseDown) {
+        slideSpeed = 2.0 // Faster movement to the right when mouse is down
+      }
+      
+      setSlideOffset((prev) => {
+        const newOffset = prev + slideSpeed * 0.01
+        return newOffset > 3 ? -3 : newOffset < -3 ? 3 : newOffset
+      })
+      
+      meshRef.current.position.x = position[0] + slideOffset
+      
+      // Mouse interaction - jellyfish follows mouse slightly
+      const mouseInfluence = 0.1
+      meshRef.current.position.x += mousePosition.x * mouseInfluence
+      meshRef.current.position.y += mousePosition.y * mouseInfluence
+      
+      // Gentle rotation
+      meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
+      
+      // Tentacle wave animation
+      meshRef.current.children.forEach((child, index) => {
+        if (child instanceof THREE.Mesh && index > 1) {
+          child.rotation.x = Math.sin(state.clock.elapsedTime * speed + index) * 0.2
+        }
+      })
+    }
+  })
+
+  return (
+    <group ref={meshRef} position={position}>
+      {/* Main jellyfish body */}
+      <mesh>
+        <sphereGeometry args={[0.8, 32, 16]} />
+        <meshStandardMaterial 
+          color="#00d4ff" 
+          emissive="#0099cc" 
+          emissiveIntensity={0.3}
+          transparent 
+          opacity={0.7}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </mesh>
+      
+      {/* Inner glow */}
+      <mesh scale={[0.6, 0.6, 0.6]}>
+        <sphereGeometry args={[0.8, 32, 16]} />
+        <meshStandardMaterial 
+          color="#66ffff" 
+          emissive="#00ffff" 
+          emissiveIntensity={0.5}
+          transparent 
+          opacity={0.4}
+        />
+      </mesh>
+      
+      {/* Tentacles */}
+      {Array.from({ length: 8 }, (_, i) => (
+        <mesh key={i} position={[
+          Math.cos((i / 8) * Math.PI * 2) * 0.6,
+          -0.8,
+          Math.sin((i / 8) * Math.PI * 2) * 0.6
+        ]}>
+          <cylinderGeometry args={[0.02, 0.08, 1.5, 8]} />
+          <meshStandardMaterial 
+            color="#00aaff" 
+            emissive="#0066cc" 
+            emissiveIntensity={0.2}
+            transparent 
+            opacity={0.6}
+          />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+function Scene({ mousePosition, isMouseDown }: { mousePosition: { x: number; y: number }; isMouseDown: boolean }) {
+  return (
+    <>
+      <PerspectiveCamera makeDefault position={[0, 0, 8]} />
+      <OrbitControls 
+        enableZoom={false} 
+        enablePan={false}
+        maxPolarAngle={Math.PI * 0.8}
+        minPolarAngle={Math.PI * 0.2}
+        enableRotate={false}
+      />
+      
+      {/* Multiple jellyfish with different positions and behaviors */}
+      <JellyfishGeometry position={[0, 0, 0]} slideDirection="right" speed={1} mousePosition={mousePosition} isMouseDown={isMouseDown} />
+      <JellyfishGeometry position={[-2, 1, -2]} slideDirection="left" speed={0.8} mousePosition={mousePosition} isMouseDown={isMouseDown} />
+      <JellyfishGeometry position={[2, -0.5, -1]} slideDirection="right" speed={1.2} mousePosition={mousePosition} isMouseDown={isMouseDown} />
+      
+      {/* Lighting */}
+      <ambientLight intensity={0.3} />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#00ffff" />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#0099ff" />
+      <spotLight
+        position={[0, 5, 5]}
+        angle={0.3}
+        penumbra={1}
+        intensity={0.8}
+        color="#00ccff"
+      />
+    </>
+  )
+}
+
+export default function InteractiveJellyfish() {
+  const [mounted, setMounted] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isMouseDown, setIsMouseDown] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    
+    const handleMouseMove = (event: MouseEvent) => {
+      const x = (event.clientX / window.innerWidth) * 2 - 1
+      const y = -(event.clientY / window.innerHeight) * 2 + 1
+      setMousePosition({ x, y })
+    }
+
+    const handleMouseDown = () => {
+      setIsMouseDown(true)
+    }
+
+    const handleMouseUp = () => {
+      setIsMouseDown(false)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousedown', handleMouseDown)
+    window.addEventListener('mouseup', handleMouseUp)
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mousedown', handleMouseDown)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="w-full h-full bg-gradient-to-b from-blue-950 to-black flex items-center justify-center">
+        <div className="text-cyan-400 text-xl">Loading 3D Scene...</div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="w-full h-full">
+      <Canvas shadows>
+        <Scene mousePosition={mousePosition} isMouseDown={isMouseDown} />
+      </Canvas>
+    </div>
+  )
+}
