@@ -514,33 +514,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-20">
         <div className="text-center space-y-8 max-w-5xl mx-auto">
-          {/* Profile Photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-            className="relative mx-auto"
-          >
-            {/* Subtle outer glow */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-lg" />
-            
-            {/* Main image container */}
-            <div className="relative w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden ring-2 ring-cyan-500/50 ring-offset-4 ring-offset-slate-900/50 shadow-lg shadow-cyan-500/20">
-              <img 
-                src="/profile.png" 
-                alt="Gaurav Rathore"
-                className="w-full h-full object-cover object-[center_20%] scale-125"
-              />
-            </div>
-            
-            {/* Online status dot */}
-            <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 shadow-sm" />
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
               <Sparkles className="w-4 h-4 text-cyan-400" />
@@ -552,7 +529,7 @@ export default function Home() {
             className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
             <span className="gradient-text">Gaurav Rathore</span>
           </motion.h1>
@@ -561,7 +538,7 @@ export default function Home() {
             className="text-xl md:text-2xl lg:text-3xl font-semibold text-cyan-300/90 h-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             <TypeWriter text="MERN Full Stack Developer" delay={80} />
           </motion.div>
@@ -570,14 +547,14 @@ export default function Home() {
             className="w-32 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto rounded-full"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           />
           
           <motion.p 
             className="text-lg md:text-xl text-cyan-200/80 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
             Building scalable web applications with 2+ years of experience
           </motion.p>
@@ -586,7 +563,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             <motion.button 
               onClick={() => scrollToSection('projects')} 
