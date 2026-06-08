@@ -674,7 +674,7 @@ export default function Home() {
               },
               { 
                 icon: Database, 
-                title: 'Full Cycle Dev', 
+                title: 'Full Stack Dev', 
                 desc: 'Authentication, Database Design, Performance Optimization',
                 color: 'from-purple-500 to-pink-500'
               },
