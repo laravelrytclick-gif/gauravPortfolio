@@ -968,8 +968,8 @@ export default function Home() {
                 { 
                   icon: Mail, 
                   label: 'Email', 
-                  value: 'vimlashrathor1984@gmail.com',
-                  href: 'mailto:vimlashrathor1984@gmail.com'
+                  value: 'gauravrathore9376@gmail.com',
+                  href: 'mailto:gauravrathore9376@gmail.com'
                 },
                 { 
                   icon: Phone, 
