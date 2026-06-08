@@ -800,35 +800,52 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <ProjectCard
+              title="ICFEI India"
+              description="Professional website for ICFEI India featuring institutional information and services"
+              tags={['Next.js', 'React', 'Tailwind CSS', 'Responsive Design']}
+              icon={Globe}
+              demo="https://www.india.icfei.com/"
+              delay={0}
+            />
+            <ProjectCard
               title="Admission Campus"
-              description="Next.js-based student admission management system with responsive UI and integrated APIs"
+              description="Comprehensive student admission management system with responsive UI and integrated APIs"
               tags={['Next.js', 'React', 'API Integration', 'Tailwind']}
               icon={GraduationCap}
-              delay={0}
+              demo="https://www.admissioncampus.in/"
+              delay={0.1}
+            />
+            <ProjectCard
+              title="Vidya Vriddhi"
+              description="Educational platform for financial planning and growth solutions in the education sector"
+              tags={['React', 'Node.js', 'MongoDB', 'Financial Planning']}
+              icon={Database}
+              demo="https://www.vidyavriddhi.com/"
+              delay={0.2}
+            />
+            <ProjectCard
+              title="Education Times Abroad"
+              description="Study abroad consultancy platform connecting students with international educational opportunities"
+              tags={['Next.js', 'TypeScript', 'API Integration', 'SEO']}
+              icon={Briefcase}
+              demo="https://www.educationtimesabroad.com/"
+              delay={0.3}
+            />
+            <ProjectCard
+              title="Gana Samriddhi Export Import"
+              description="Business platform for export-import operations with product catalog and trade management"
+              tags={['React', 'Express.js', 'MongoDB', 'E-commerce']}
+              icon={Server}
+              demo="https://ganasamriddhiexportimport.com/"
+              delay={0.4}
             />
             <ProjectCard
               title="CommonIntern"
               description="Python automation script for job applications on Glassdoor using BeautifulSoup and Selenium"
               tags={['Python', 'Selenium', 'BeautifulSoup', 'Automation']}
-              icon={Briefcase}
-              github="https://github.com/Gaurav-rathore77"
-              delay={0.1}
-            />
-            <ProjectCard
-              title="E-Commerce Platform"
-              description="Full-stack e-commerce solution with MERN stack and secure payment integration"
-              tags={['MongoDB', 'Express.js', 'React', 'Node.js', 'Stripe']}
-              icon={Database}
-              github="https://github.com/Gaurav-rathore77"
-              delay={0.2}
-            />
-            <ProjectCard
-              title="Task Management System"
-              description="Collaborative project management tool with real-time updates and team features"
-              tags={['Node.js', 'Socket.io', 'JWT Auth', 'React']}
               icon={Zap}
               github="https://github.com/Gaurav-rathore77"
-              delay={0.3}
+              delay={0.5}
             />
           </div>
         </div>
@@ -916,10 +933,10 @@ export default function Home() {
                   <GraduationCap className="w-10 h-10 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-cyan-300 mb-2">B.Sc Computer Science</h3>
-                  <p className="text-cyan-200 mb-2">Indira Gandhi National Open University</p>
-                  <p className="text-cyan-400/80 text-sm font-mono mb-3">2023 – 2026</p>
-                  <p className="text-cyan-100/70">Relevant Coursework: Data Structure Algorithms, NoSQL, Web Development</p>
+                  <h3 className="text-2xl font-bold text-cyan-300 mb-2">Computer Science</h3>
+                  <p className="text-cyan-200 mb-2">Jamia Slamia</p>
+                  <p className="text-cyan-400/80 text-sm font-mono mb-3">2022 – 2024</p>
+                  <p className="text-cyan-100/70">Second Year Dropout</p>
                 </div>
               </div>
             </motion.div>

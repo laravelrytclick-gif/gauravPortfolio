@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "3D Jellyfish Portfolio",
-  description: "Interactive 3D portfolio with animated jellyfish",
+  title: "Gaurav Rathore - MERN Full Stack Developer",
+  description: "Portfolio of Gaurav Rathore - MERN Full Stack Developer with 2+ years of experience building scalable web applications",
 };
 
 export default function RootLayout({
